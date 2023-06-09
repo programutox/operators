@@ -16,22 +16,21 @@ def _number(n, op_components):
         return n
     
     op_name, m = op_components
-    if op_name == "plus":
-        return n + m
-    elif op_name == "minus":
-        return n - m
-    elif op_name == "times":
-        return n * m
-    elif op_name == "divided":
-        if m == 0:
-            raise ZeroDivisionError
-        return n / m 
-    elif op_name == "power":
-        return n ** m
-    elif op_name == "modulo":
-        return n % m
-    
-    raise ValueError(f'Expected op_name to be "plus", "minus", "times" or "divided", found "{op_name}"')
+    match op_name:
+        case "plus":
+            return n + m
+        case "minus":
+            return n - m
+        case "times":
+            return n * m
+        case "divided":
+            return n / m
+        case "power":
+            return n ** m
+        case "modulo":
+            return n % m
+        case _:
+            raise ValueError(f'Expected op_name to be "plus", "minus", "times" or "divided", found "{op_name}"')
 
 
 zero  = lambda op=None : _number(0, op)
