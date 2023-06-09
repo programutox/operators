@@ -1,3 +1,5 @@
+import operator as ope
+
 def _operator(op_name, n):
     if not isinstance(n, int):
         raise TypeError(f"Expected int, found {type(n)}")
@@ -15,22 +17,23 @@ def _number(n, op_components):
     if op_components is None:
         return n
     
+    valid_ops = {
+        "plus": ope.add,
+        "minus": ope.sub,
+        "times": ope.mul,
+        "divided": ope.truediv,
+        "power": ope.pow,
+        "modulo": ope.mod,
+    }
+
+    
     op_name, m = op_components
-    match op_name:
-        case "plus":
-            return n + m
-        case "minus":
-            return n - m
-        case "times":
-            return n * m
-        case "divided":
-            return n / m
-        case "power":
-            return n ** m
-        case "modulo":
-            return n % m
-        case _:
-            raise ValueError(f'Expected op_name to be "plus", "minus", "times" or "divided", found "{op_name}"')
+    if op_name not in valid_ops:
+        raise ValueError(f"{op_name} is not a valid operator")
+    
+    func = valid_ops[op_name]
+    return func(n, m)
+    
 
 
 zero  = lambda op=None : _number(0, op)
