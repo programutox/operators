@@ -8,7 +8,8 @@ plus       = lambda n : _operator("plus", n)
 minus      = lambda n : _operator("minus", n)
 times      = lambda n : _operator("times", n)
 divided_by = lambda n : _operator("divided_by", n)
-
+power      = lambda n : _operator("power", n)
+modulo     = lambda n : _operator("modulo", n)
 
 def _number(n, op_components):
     if op_components is None:
@@ -25,6 +26,10 @@ def _number(n, op_components):
         if m == 0:
             raise ZeroDivisionError
         return n / m 
+    elif op_name == "power":
+        return n ** m
+    elif op_name == "modulo":
+        return n % m
     
     raise ValueError(f'Expected op_name to be "plus", "minus", "times" or "divided", found "{op_name}"')
 
@@ -42,5 +47,5 @@ nine  = lambda op=None : _number(9, op)
 
 
 if __name__ == '__main__':
-    print("1 + 1 =", one(plus(one())))
+    print("3 % 2 =", three(modulo(two())))
 
